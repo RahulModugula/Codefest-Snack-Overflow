@@ -133,7 +133,7 @@ const AskAI = () => {
                 onSubmit={(e) => e.preventDefault()}
               >
                 <TextField
-                  label="Which City?"
+                  label=""
                   variant="outlined"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}

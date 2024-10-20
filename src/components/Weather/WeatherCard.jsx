@@ -13,10 +13,10 @@ import weatherSnowIcon from "../../assets/images/weather-snow.webp";
 import { getWeatherData } from "../../api/apiService";
 
 const WeatherCard = ({ coordinates }) => {
-  const [city, setCity] = useState("Maryland");
-  const [temp, setTemp] = useState("55°F");
+  const [city, setCity] = useState("Blacksburg");
+  const [temp, setTemp] = useState("66°F");
   const [humidity, setHumidity] = useState("20%");
-  const [windSpeed, setWindSpeed] = useState("15km/h");
+  const [windSpeed, setWindSpeed] = useState("15mi/h");
   const [weatherIcon, setWeatherIcon] = useState(weatherIconImg);
 
   const getIconForWeather = (main) => {

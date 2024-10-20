@@ -6,9 +6,29 @@ import ChatIcon from "@material-ui/icons/Chat";
 
 export const steps = [
   {
-    label: "City Name",
+    label: "Trip",
     icon: <ExploreIcon />,
-    description: "Where do you want to go?",
+    description: "What kind of a trip is this?",
+  },
+  {
+    label: "Company",
+    icon: <ExploreIcon />,
+    description: "Who are you traveling with?",
+  },
+  {
+    label: "Activities",
+    icon: <ExploreIcon />,
+    description: "What type of activities are you interested in?",
+  },
+  {
+    label: "Climate",
+    icon: <ExploreIcon />,
+    description: "What type of climate do you prefer?",
+  },
+  {
+    label: "Cuisine",
+    icon: <ExploreIcon />,
+    description: "What type of cuisines do you like?",
   },
   {
     label: "Days",
