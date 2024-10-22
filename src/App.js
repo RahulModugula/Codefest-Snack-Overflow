@@ -9,6 +9,7 @@ import Hero from "./components/Hero";
 import WeatherCard from "./components/Weather/WeatherCard";
 import AskAI from "./components/AskAI";
 import "./style/global.css";
+require('dotenv').config();
 
 const App = () => {
   const [places, setPlaces] = useState([]);

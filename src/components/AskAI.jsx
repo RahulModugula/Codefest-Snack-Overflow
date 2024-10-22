@@ -24,19 +24,25 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 //import { AzureOpenAI } from "openai";
 
+
+
 const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
 const AskAI = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
-  const [city, setCity] = useState("");
+  const [trip, setTrip] = useState("");
+  const [company, setCompany] = useState("");
+  const [activities, setActivities] = useState("");
+  const [climate, setClimate] = useState("");
+  const [cuisine, setCuisine] = useState("");
+  //const [city, setCity] = useState("");
   const [days, setDays] = useState(1);
   const [budget, setBudget] = useState("");
   const [mood, setMood] = useState("");
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
-
   const isMobile = useMediaQuery("(max-width:600px)");
 
   const handleNext = () => {
@@ -51,19 +57,27 @@ const AskAI = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleBackMain = () => {
+ const handleBackMain = () => {
     setActiveStep(0);
-    setCity("");
+    setTrip("");
+    setCompany("");
+    setActivities("");
+    setClimate("");
+    setCuisine("");
+    //setCity("");
     setDays(1);
     setBudget("");
     setMood("");
     setResponse("");
   };
 
+
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const prompt = `Plan a ${days}-day trip to ${city} with a ${budget} budget (in USD). Focus on ${mood} activities.`;
+      const prompt = `Plan a ${days}-day ${trip} trip with a ${budget} budget (in USD). 
+                      Traveling with ${company}, focusing on ${activities} activities, 
+                      a ${climate} climate, and enjoying ${cuisine} cuisine. Focus on ${mood} features.`;
       const result = await model.generateContent(prompt);
       const aiResponse = await result.response.text();
       const formatedResponse = formatResponseText(aiResponse);
@@ -85,19 +99,33 @@ const AskAI = () => {
     }
   };
 
+  // const isNextButtonDisabled = () => {
+  //   switch (activeStep) {
+  //     case 0:
+  //       return trip.trim() === "";
+  //     case 1:
+  //       return company.trim() === "";
+  //     case 2:
+  //       return activities.trim() === "";
+  //     case 3:
+  //       return climate.trim() === "";
+  //     case 4:
+  //       return cuisine.trim() === "";
+  //     case 5:
+  //       return city.trim() === "";
+  //     case 6:
+  //       return days < 1;
+  //     case 7:
+  //       return budget.trim() === "";
+  //     case 8:
+  //       return mood.trim() === "";
+  //     default:
+  //       return false;
+  //   }
+  // };
+
   const isNextButtonDisabled = () => {
-    switch (activeStep) {
-      case 0:
-        return city.trim() === "";
-      case 1:
-        return days < 1;
-      case 2:
-        return budget.trim() === "";
-      case 3:
-        return mood.trim() === "";
-      default:
-        return false;
-    }
+    return false;
   };
 
   return (
@@ -113,7 +141,6 @@ const AskAI = () => {
                 <Step key={step.label}>
                   <StepLabel>
                     <Box className={classes.stepLabel}>
-                      {step.icon}
                       {step.label}
                     </Box>
                   </StepLabel>
@@ -128,18 +155,15 @@ const AskAI = () => {
               <Typography variant="h6" gutterBottom>
                 {steps[0].description}
               </Typography>
-              <form
-                className={classes.form}
-                onSubmit={(e) => e.preventDefault()}
-              >
+              <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
                 <TextField
-                  label=""
+                  label="Trip Type"
                   variant="outlined"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
+                  value={trip}
+                  onChange={(e) => setTrip(e.target.value)}
                   fullWidth
                   required
-                /> 
+                />
                 <Box className={classes.buttonContainer}>
                   <Button
                     variant="contained"
@@ -158,6 +182,130 @@ const AskAI = () => {
             <Box>
               <Typography variant="h6" gutterBottom>
                 {steps[1].description}
+              </Typography>
+              <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
+                <TextField
+                  label="Company"
+                  variant="outlined"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  fullWidth
+                  required
+                />
+                <Box className={classes.buttonContainer}>
+                  <Button onClick={handleBack} className={classes.button}>
+                    Back
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                    disabled={isNextButtonDisabled()}
+                  >
+                    Next
+                  </Button>
+                </Box>
+              </form>
+            </Box>
+          )}
+          {activeStep === 2 && (
+            <Box>
+              <Typography variant="h6" gutterBottom>
+                {steps[2].description}
+              </Typography>
+              <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
+                <TextField
+                  label="Activities"
+                  variant="outlined"
+                  value={activities}
+                  onChange={(e) => setActivities(e.target.value)}
+                  fullWidth
+                  required
+                />
+                <Box className={classes.buttonContainer}>
+                  <Button onClick={handleBack} className={classes.button}>
+                    Back
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                    disabled={isNextButtonDisabled()}
+                  >
+                    Next
+                  </Button>
+                </Box>
+              </form>
+            </Box>
+          )}
+          {activeStep === 3 && (
+            <Box>
+              <Typography variant="h6" gutterBottom>
+                {steps[3].description}
+              </Typography>
+              <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
+                <TextField
+                  label="Climate"
+                  variant="outlined"
+                  value={climate}
+                  onChange={(e) => setClimate(e.target.value)}
+                  fullWidth
+                  required
+                />
+                <Box className={classes.buttonContainer}>
+                  <Button onClick={handleBack} className={classes.button}>
+                    Back
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                    disabled={isNextButtonDisabled()}
+                  >
+                    Next
+                  </Button>
+                </Box>
+              </form>
+            </Box>
+          )}
+          {activeStep === 4 && (
+            <Box>
+              <Typography variant="h6" gutterBottom>
+                {steps[4].description}
+              </Typography>
+              <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
+                <TextField
+                  label="Cuisine"
+                  variant="outlined"
+                  value={cuisine}
+                  onChange={(e) => setCuisine(e.target.value)}
+                  fullWidth
+                  required
+                />
+                <Box className={classes.buttonContainer}>
+                  <Button onClick={handleBack} className={classes.button}>
+                    Back
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                    disabled={isNextButtonDisabled()}
+                  >
+                    Next
+                  </Button>
+                </Box>
+              </form>
+            </Box>
+          )}
+          {activeStep === 5 && (
+            <Box>
+              <Typography variant="h6" gutterBottom>
+                {steps[5].description}
               </Typography>
               <Box className={classes.form}>
                 <IconButton
@@ -201,15 +349,12 @@ const AskAI = () => {
               </Box>
             </Box>
           )}
-          {activeStep === 2 && (
+          {activeStep === 6 && (
             <Box>
               <Typography variant="h6" gutterBottom>
-                {steps[2].description}
+                {steps[6].description}
               </Typography>
-              <form
-                className={classes.form}
-                onSubmit={(e) => e.preventDefault()}
-              >
+              <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
                 <TextField
                   label="Budget"
                   variant="outlined"
@@ -240,13 +385,13 @@ const AskAI = () => {
               </form>
             </Box>
           )}
-          {activeStep === 3 && (
+          {activeStep === 7 && (
             <Box>
               <Typography variant="h6" gutterBottom>
-                {steps[3].description}
+                {steps[7].description}
               </Typography>
               <Box className={classes.form}>
-                {steps[3].options.map((option, index) => (
+                {steps[7].options.map((option, index) => (
                   <Button
                     key={index}
                     variant="outlined"
@@ -270,7 +415,7 @@ const AskAI = () => {
               </Box>
             </Box>
           )}
-          {activeStep === 4 && (
+          {activeStep === 8 && (
             <Box>
               <Box className={classes.outputBox}>
                 {loading ? (
@@ -291,6 +436,7 @@ const AskAI = () => {
     </Paper>
   );
 };
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -342,5 +488,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
 }));
+
 
 export default AskAI;

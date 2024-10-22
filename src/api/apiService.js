@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 // Travel Advisor API (RapidApi)
 export const getPlacesData = async (type, sw, ne) => {
   if (process.env.REACT_APP_ENV !== "development") {

@@ -11,7 +11,7 @@ const Footer = () => {
         <Grid container spacing={4} justifyContent="center">
           <Grid item>
             <Link
-              href="https://bhaskaracharjee.vercel.app/"
+              href="rahulreddy@vt.edu"
               color="inherit"
               target="_blank"
             >
@@ -20,7 +20,7 @@ const Footer = () => {
           </Grid>
           <Grid item>
             <Link
-              href="https://twitter.com/_bha_s_kar_"
+              href=""
               color="inherit"
               target="_blank"
             >
@@ -29,7 +29,7 @@ const Footer = () => {
           </Grid>
           <Grid item>
             <Link
-              href="https://www.linkedin.com/in/bhaskar-acharjee/"
+              href="https://www.linkedin.com/in/rahulmodugula3/"
               color="inherit"
               target="_blank"
             >
@@ -38,7 +38,7 @@ const Footer = () => {
           </Grid>
           <Grid item>
             <Link
-              href="https://github.com/BhaskarAcharjee"
+              href="https://github.com/RahulModugula"
               color="inherit"
               target="_blank"
             >
